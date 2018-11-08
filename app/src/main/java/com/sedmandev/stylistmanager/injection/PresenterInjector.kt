@@ -3,6 +3,7 @@ package com.sedmandev.stylistmanager.injection
 import com.sedmandev.stylistmanager.base.interfaces.BaseView
 import com.sedmandev.stylistmanager.base.interfaces.Router
 import com.sedmandev.stylistmanager.modules.AppModule
+import com.sedmandev.stylistmanager.ui.login.LoginPresenter
 import com.sedmandev.stylistmanager.ui.splash.SplashPresenter
 import dagger.BindsInstance
 import dagger.Component
@@ -17,8 +18,8 @@ interface PresenterInjector {
    * Injects required dependencies into the specified presenter.
    * @param presenter presenter in which to inject the dependencies
    */
-
-  fun inject(splashPresenter: SplashPresenter)
+  fun inject(presenter: SplashPresenter)
+  fun inject(presenter: LoginPresenter)
 
   @Component.Builder
   interface Builder {

@@ -1,6 +1,7 @@
 package com.sedmandev.stylistmanager.injection
 
 import com.sedmandev.stylistmanager.modules.AppModule
+import com.sedmandev.stylistmanager.ui.login.LoginInteractor
 import com.sedmandev.stylistmanager.ui.splash.SplashInteractor
 import dagger.Component
 import javax.inject.Singleton
@@ -14,7 +15,8 @@ interface InteractorInjector {
    * @param interactor in which to inject the dependencies.
    * */
 
-  fun inject(splashInteractor: SplashInteractor)
+  fun inject(interactor: SplashInteractor)
+  fun inject(interactor: LoginInteractor)
 
   @Component.Builder
   interface Builder {

@@ -3,6 +3,7 @@ package com.sedmandev.stylistmanager.ui.splash
 import com.sedmandev.stylistmanager.MainActivity
 import com.sedmandev.stylistmanager.base.BasePresenter
 import com.sedmandev.stylistmanager.base.interfaces.Router
+import com.sedmandev.stylistmanager.ui.login.LoginActivity
 import io.reactivex.Completable
 import io.reactivex.disposables.Disposable
 import java.util.concurrent.TimeUnit
@@ -21,7 +22,7 @@ class SplashPresenter(splashView: SplashView, splashRouter: SplashRouter,
   override fun onCreate() {
     Completable.complete()
         .delay(3, TimeUnit.SECONDS)
-        .doOnComplete { router.navigateTo(view.getContext(), MainActivity::class.java) }
+        .doOnComplete { router.navigateTo(view.getContext(), LoginActivity::class.java) }
         .subscribe()
   }
 

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "63989358751",
+    "firebase_url": "https://stylistmanager-7c8ff.firebaseio.com",
+    "project_id": "stylistmanager-7c8ff",
+    "storage_bucket": "stylistmanager-7c8ff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:63989358751:android:906e396248021110",
+        "android_client_info": {
+          "package_name": "com.sedmandev.stylistmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "63989358751-k57vcrqin1japcjq2hr5ocoii6nl8bpv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sedmandev.stylistmanager",
+            "certificate_hash": "1e4f5005fa4e5866d8bc7f412bf83cf022d47a78"
+          }
+        },
+        {
+          "client_id": "63989358751-908csc2dtelmrlj1m8360o8al5chr97k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDr00ZKHBY9szQBpGUsRvDP0wfJCDtOVGI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "63989358751-908csc2dtelmrlj1m8360o8al5chr97k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
