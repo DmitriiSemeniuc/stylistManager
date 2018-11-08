@@ -8,9 +8,14 @@ import android.view.View
 import android.widget.Button
 import com.sedmandev.stylistmanager.R
 import com.sedmandev.stylistmanager.base.BaseActivity
+import com.sedmandev.stylistmanager.session.SessionData
 import com.sedmandev.stylistmanager.utils.RC_GOOGLE_SIGN_IN
+import javax.inject.Inject
 
 class LoginActivity: BaseActivity<LoginPresenter>(), LoginView, View.OnClickListener {
+
+  @Inject
+  lateinit var sessionData: SessionData
 
   val TAG = LoginActivity::class.java.simpleName
 
@@ -31,6 +36,8 @@ class LoginActivity: BaseActivity<LoginPresenter>(), LoginView, View.OnClickList
   override fun initViews() {
     btnGoogleSignIn = findViewById<View>(R.id.btn_google_sign_in) as Button
     btnGoogleSignIn.setOnClickListener(this)
+
+    sessionData.useLogged
   }
 
   override fun getActivity(): Activity {

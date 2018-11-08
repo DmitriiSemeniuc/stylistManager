@@ -1,6 +1,5 @@
 package com.sedmandev.stylistmanager.ui.splash
 
-import com.sedmandev.stylistmanager.MainActivity
 import com.sedmandev.stylistmanager.base.BasePresenter
 import com.sedmandev.stylistmanager.base.interfaces.Router
 import com.sedmandev.stylistmanager.ui.login.LoginActivity

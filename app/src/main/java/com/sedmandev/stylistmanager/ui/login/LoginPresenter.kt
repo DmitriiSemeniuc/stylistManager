@@ -3,9 +3,8 @@ package com.sedmandev.stylistmanager.ui.login
 import android.content.Intent
 import android.util.Log
 import com.sedmandev.stylistmanager.BuildConfig
-import com.sedmandev.stylistmanager.MainActivity
-import com.sedmandev.stylistmanager.R
 import com.sedmandev.stylistmanager.base.BasePresenter
+import com.sedmandev.stylistmanager.ui.main.MainActivity
 import com.sedmandev.stylistmanager.utils.GoogleSignInHelper
 
 class LoginPresenter(loginView : LoginView, loginRouter : LoginRouter,
@@ -64,6 +63,8 @@ class LoginPresenter(loginView : LoginView, loginRouter : LoginRouter,
   override fun onGoogleSignInSuccess(uid: String, name: String?, email: String?, photoUrl: String) {
     Log.d(TAG, "Google sign in successfully, user name: $name")
     router.navigateTo(view.getContext(), MainActivity::class.java)
+
+
   }
 
   override fun onGoogleSignInFailed() {

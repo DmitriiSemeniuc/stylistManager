@@ -4,6 +4,7 @@ import com.sedmandev.stylistmanager.base.interfaces.BaseView
 import com.sedmandev.stylistmanager.base.interfaces.Router
 import com.sedmandev.stylistmanager.modules.AppModule
 import com.sedmandev.stylistmanager.ui.login.LoginPresenter
+import com.sedmandev.stylistmanager.ui.main.MainPresenter
 import com.sedmandev.stylistmanager.ui.splash.SplashPresenter
 import dagger.BindsInstance
 import dagger.Component
@@ -20,6 +21,7 @@ interface PresenterInjector {
    */
   fun inject(presenter: SplashPresenter)
   fun inject(presenter: LoginPresenter)
+  fun inject(presenter: MainPresenter)
 
   @Component.Builder
   interface Builder {

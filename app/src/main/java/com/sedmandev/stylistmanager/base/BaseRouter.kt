@@ -11,4 +11,9 @@ abstract class BaseRouter : Router {
     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
     context.startActivity(intent)
   }
+
+  override fun navigateTo(context: Context, cls: Class<*>, intent: Intent) {
+    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+    context.startActivity(intent)
+  }
 }

@@ -16,17 +16,8 @@ class SplashActivity : BaseActivity<SplashPresenter>(), SplashView {
     return SplashPresenter(this, SplashRouter(), SplashInteractor())
   }
 
-  /**
-   * DataBinding instance
-   */
-  //private lateinit var binding: ActivitySplashBinding
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    //setContentView(R.layout.activity_splash)
-
-    //binding = DataBindingUtil.setContentView(this, R.layout.activity_splash)
-
     presenter.onCreate()
   }
 
