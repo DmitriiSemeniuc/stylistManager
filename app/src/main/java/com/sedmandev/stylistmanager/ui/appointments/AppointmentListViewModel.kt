@@ -7,7 +7,7 @@ import com.sedmandev.stylistmanager.R
 import com.sedmandev.stylistmanager.base.BaseViewModel
 import com.sedmandev.stylistmanager.model.Appointment
 import com.sedmandev.stylistmanager.model.AppointmentDao
-import com.sedmandev.stylistmanager.network.AppointmentApi
+import com.sedmandev.stylistmanager.model.database.repository.AppointmentRepository
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -19,17 +19,15 @@ class AppointmentListViewModel(private val appointmentDao: AppointmentDao) : Bas
   private val TAG = AppointmentViewModel::class.java.simpleName
 
   @Inject
-  lateinit var appointmentApi: AppointmentApi
+  lateinit var appointmentRepository: AppointmentRepository
 
+  lateinit var subscription: Disposable
   val appointmentListAdapter: AppointmentListAdapter = AppointmentListAdapter()
-
   val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
   val errorMessage: MutableLiveData<Int> = MutableLiveData()
-  val errorClickListener = View.OnClickListener { loadAppointments() }
-
-  private lateinit var subscription: Disposable
 
   init {
+    appointmentRepository.appointmentDao = appointmentDao
     loadAppointments()
   }
 
@@ -39,17 +37,7 @@ class AppointmentListViewModel(private val appointmentDao: AppointmentDao) : Bas
   }
 
   private fun loadAppointments(){
-    subscription = Observable.fromCallable { appointmentDao.all }
-        .concatMap {
-          dbAppointmentList ->
-          if(dbAppointmentList.isEmpty())
-            appointmentApi.getAppointments().concatMap {
-              apiAppointmentList -> appointmentDao.insertAll(*apiAppointmentList.toTypedArray())
-              Observable.just(apiAppointmentList)
-            }
-          else
-            Observable.just(dbAppointmentList)
-        }
+    subscription = getAppointments()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnSubscribe { onRetrieveAppointmentListStart() }
@@ -58,6 +46,13 @@ class AppointmentListViewModel(private val appointmentDao: AppointmentDao) : Bas
             { result -> onRetrieveAppointmentListSuccess(result) },
             { t ->  onRetrieveAppointmentListError(t) }
         )
+  }
+
+  fun getAppointments(): Observable<List<Appointment>> {
+    return appointmentRepository.getAppointments()
+        .onErrorReturn {
+          emptyList<Appointment>()
+        }
   }
 
   private fun onRetrieveAppointmentListStart(){

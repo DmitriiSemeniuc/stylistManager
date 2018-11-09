@@ -1,5 +1,6 @@
 package com.sedmandev.stylistmanager.injection.module
 
+import com.sedmandev.stylistmanager.model.database.repository.AppointmentRepository
 import com.sedmandev.stylistmanager.network.AppointmentApi
 import com.sedmandev.stylistmanager.utils.BASE_URL
 import dagger.Module
@@ -17,6 +18,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 // Safe here as we are dealing with a Dagger 2 module
 @Suppress("unused")
 object NetworkModule {
+
   /**
    * Provides the Appointment service implementation.
    * @param retrofit the Retrofit object used to instantiate the service
@@ -27,6 +29,18 @@ object NetworkModule {
   @JvmStatic
   internal fun provideAppointmentApi(retrofit: Retrofit): AppointmentApi {
     return retrofit.create(AppointmentApi::class.java)
+  }
+
+  /**
+   * Provides the AppointmentRepository implementation.
+   * @param AppointmentApi the AppointmentApi object used to instantiate the AppointmentRepository
+   * @return the AppointmentRepository implementation.
+   */
+  @Provides
+  @Reusable
+  @JvmStatic
+  internal fun provideAppointmentRepository(api: AppointmentApi): AppointmentRepository {
+    return AppointmentRepository(api)
   }
 
   /**

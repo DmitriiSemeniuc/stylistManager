@@ -82,6 +82,7 @@ dependencies {
 
     // Room
     implementation "androidx.room:room-runtime:$room_version" // android.arch.persistence.room
+    implementation "androidx.room:room-rxjava2:$room_version" // android.arch.persistence.room
     kapt "androidx.room:room-compiler:$room_version" //android.arch.persistence.room:compiler
 
     // Tests
