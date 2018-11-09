@@ -1,5 +1,14 @@
 package com.sedmandev.stylistmanager.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.util.*
 
-data class Appointment(val id: Int, val name: String, val client: Client, val date: Date)
+@Entity
+data class Appointment(
+    val userId: Int,
+    @field:PrimaryKey
+    val id: Int,
+    val title: String,
+    val completed: Boolean
+)

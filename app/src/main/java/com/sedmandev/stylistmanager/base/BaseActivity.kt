@@ -1,77 +1,63 @@
 package com.sedmandev.stylistmanager.base
 
-import android.app.Activity
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.IntentFilter
-import android.os.Build
 import android.os.Bundle
-import android.support.annotation.ColorRes
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
-import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.ViewModelProviders
 import com.sedmandev.stylistmanager.base.interfaces.BaseView
-import com.sedmandev.stylistmanager.base.interfaces.Router
+import com.sedmandev.stylistmanager.injection.ViewModelFactory
 import com.sedmandev.stylistmanager.utils.NetworkHelper.Companion.ACTION_INTERNET_CONNECTION
 
 /**
  * Base activity of all Activity classes
  * It provides required methods, presenter installation and calls.
  *
- * @param P the type of the presenter the Activity is base on.
  * */
-abstract class BaseActivity<P: BasePresenter<BaseView, Router>> : BaseView, AppCompatActivity() {
+abstract class BaseActivity<V: BaseViewModel, B: ViewDataBinding, P: BasePresenter> : BaseView, AppCompatActivity() {
 
   private var internetConnectionIntent: IntentFilter = IntentFilter(ACTION_INTERNET_CONNECTION)
 
-  protected lateinit var presenter: P
-
   protected abstract val contentViewId: Int
 
-  protected abstract val statusBarColor: Int
+  protected abstract val viewModelClassName: Class<V>
+
+  protected lateinit var binding: B
+
+  protected lateinit var viewModel: V
+
+  protected abstract fun instantiatePresenter(): P
+
+  protected abstract fun onBindingInitialized(binding: B)
+
+  protected abstract fun onViewModelInitialized(viewModel: V)
+
 
   @Suppress("UNCHECKED_CAST")
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    if(contentViewId != -1) {
-      setContentView(contentViewId)
-    }
 
-    val viewModel = ViewModelProviders.of(this).get(BaseViewModel::class.java)
+    binding = DataBindingUtil.setContentView(this, contentViewId)
+    onBindingInitialized(binding)
+
+    viewModel = ViewModelProviders.of(this, ViewModelFactory(this)).get(viewModelClassName)
     if(viewModel.presenter == null) {
       viewModel.presenter = instantiatePresenter()
     }
 
-    presenter = viewModel.presenter as P
+    val presenter = viewModel.presenter as P
     presenter.attachLifecycle(lifecycle)
+
+    onViewModelInitialized(viewModel)
   }
 
-  override fun onStart() {
-    super.onStart()
-    if(statusBarColor != -1) {
-      setStatusBarColor()
-    }
-  }
-
-  protected abstract fun instantiatePresenter(): P
-
-  private fun setStatusBarColor() {
-    setStatusBarColor(this, statusBarColor)
-  }
-
-  private fun setStatusBarColor(activity: Activity, @ColorRes color: Int) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      val window = activity.window
-
-      // clear FLAG_TRANSLUCENT_STATUS flag:
-      window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-
-      // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
-      window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-
-      // finally change the color
-      window.statusBarColor = ContextCompat.getColor(activity, color)
-    }
+  @Suppress("UNCHECKED_CAST")
+  override fun onDestroy() {
+    val presenter = viewModel.presenter as P
+    presenter.detachLifecycle(lifecycle)
+    super.onDestroy()
   }
 
   override fun getContext(): Context {

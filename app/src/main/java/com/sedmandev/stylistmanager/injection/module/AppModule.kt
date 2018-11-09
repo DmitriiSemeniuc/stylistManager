@@ -1,4 +1,4 @@
-package com.sedmandev.stylistmanager.modules
+package com.sedmandev.stylistmanager.injection.module
 
 import android.app.Application
 import android.content.Context

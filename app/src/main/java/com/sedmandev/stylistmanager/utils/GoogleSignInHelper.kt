@@ -3,9 +3,9 @@ package com.sedmandev.stylistmanager.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.support.v4.app.FragmentActivity
 import android.util.Log
 import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions

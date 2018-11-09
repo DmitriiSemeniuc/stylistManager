@@ -1,35 +1,24 @@
 package com.sedmandev.stylistmanager.injection
 
-import com.sedmandev.stylistmanager.base.interfaces.BaseView
-import com.sedmandev.stylistmanager.base.interfaces.Router
-import com.sedmandev.stylistmanager.modules.AppModule
-import com.sedmandev.stylistmanager.ui.login.LoginPresenter
-import com.sedmandev.stylistmanager.ui.main.MainPresenter
-import com.sedmandev.stylistmanager.ui.splash.SplashPresenter
-import dagger.BindsInstance
+import com.sedmandev.stylistmanager.injection.module.AppModule
+import com.sedmandev.stylistmanager.injection.module.NetworkModule
+import com.sedmandev.stylistmanager.ui.appointments.AppointmentListPresenter
 import dagger.Component
 import javax.inject.Singleton
 /**
  * Component providing inject() methods for presenters.
  */
 @Singleton
-@Component(modules = [(AppModule::class)])
+@Component(modules = [NetworkModule::class, AppModule::class])
 interface PresenterInjector {
   /**
    * Injects required dependencies into the specified presenter.
    * @param presenter presenter in which to inject the dependencies
    */
-  fun inject(presenter: SplashPresenter)
-  fun inject(presenter: LoginPresenter)
-  fun inject(presenter: MainPresenter)
+  fun inject(presenter: AppointmentListPresenter)
 
   @Component.Builder
   interface Builder {
     fun build(): PresenterInjector
-    fun appModule(appModule: AppModule): Builder
-    @BindsInstance
-    fun baseView(baseView: BaseView): Builder
-    @BindsInstance
-    fun router(router: Router) : Builder
   }
 }

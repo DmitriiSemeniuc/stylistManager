@@ -1,12 +1,11 @@
-package com.sedmandev.stylistmanager.ui.main
+package com.sedmandev.stylistmanager.ui.appointments
 
 import android.util.Log
 import com.sedmandev.stylistmanager.base.BasePresenter
 
-class MainPresenter(mainView: MainView, mainRouter: MainRouter, private val interactor: MainInteractor) :
-    BasePresenter<MainView, MainRouter>(mainView, mainRouter) {
+class AppointmentListPresenter : BasePresenter() {
 
-  val TAG = MainPresenter::class.java.simpleName
+  val TAG = AppointmentListPresenter::class.java.simpleName
 
   override fun inject() {
     injector.inject(this)
@@ -35,5 +34,4 @@ class MainPresenter(mainView: MainView, mainRouter: MainRouter, private val inte
   override fun onDestroy() {
     Log.d(TAG, "onDestroy")
   }
-
 }

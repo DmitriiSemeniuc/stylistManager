@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.sedmandev.stylistmanager.R
 import com.sedmandev.stylistmanager.base.BaseActivity
 
-class SplashActivity : BaseActivity<SplashPresenter>(), SplashView {
+class SplashActivity /*: BaseActivity<SplashPresenter>(), SplashView {
 
   override val contentViewId: Int
     get() = R.layout.activity_splash
@@ -13,7 +13,7 @@ class SplashActivity : BaseActivity<SplashPresenter>(), SplashView {
     get() = android.R.color.black
 
   override fun instantiatePresenter(): SplashPresenter {
-    return SplashPresenter(this, SplashRouter(), SplashInteractor())
+    return SplashPresenter(this)
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,4 +29,4 @@ class SplashActivity : BaseActivity<SplashPresenter>(), SplashView {
     super.onDestroy()
     presenter.onDestroy()
   }
-}
+}*/
